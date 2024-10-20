@@ -40,3 +40,13 @@
     white-space: pre-wrap;
     margin-top: 20px;
 }
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+.invalid {
+    border-color: red;
+    background-color: #ffe6e6;
+}
