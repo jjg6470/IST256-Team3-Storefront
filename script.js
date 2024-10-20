@@ -24,8 +24,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 email: document.getElementById('signupEmail').value,
                 name: document.getElementById('signupName').value,
                 phone: document.getElementById('signupPhone').value,
-                age: document.getElementById('signupAge').value,
-                address: document.getElementById('signupAddress').value
+                password: document.getElementById('signupPassword').value,
+                confirmPassword: document.getElementById('signupConfirmPassword').value
             };
 
             console.log('Signup Form Data:', JSON.stringify(formData, null, 2));
@@ -47,4 +47,3 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-
