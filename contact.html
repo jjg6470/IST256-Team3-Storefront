@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<!--This Login Page is Designed by:
+
+Name: Valeed Anjum
+Course: IST 256 section 001
+project: L6 Group Work Project Alpha Web 
+Storefront: Shopper Management Web Page
+
+-->
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <title>Document</title>
+    <title>Contact Us - Dealership Name</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light"><!--Bootstrap Navbar Implimentation @Joshua Gonzales-->
@@ -21,7 +31,7 @@
                     <a class="nav-link" href="about.html">About Us</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact</a>
+                    <a class="nav-link active" href="contact.html">Contact</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="cookie&PrivacyPolicies.html">Privacy Policy</a>
@@ -47,7 +57,52 @@
             </ul>
         </div>
     </nav>
-    Contact Section
+    
+    <main class="container mt-5">
+        <h1 class="mb-4">Contact Us</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Get in Touch</h2>
+                <p>We're here to help! Please feel free to reach out to us using any of the following methods:</p>
+                <ul class="list-unstyled">
+                    <li><strong>Phone:</strong> (123) 456-7890</li>
+                    <li><strong>Email:</strong> info@dealershipname.com</li>
+                    <li><strong>Address:</strong> 123 Car Street, Autoville, ST 12345</li>
+                </ul>
+                <h3 class="mt-4">Business Hours</h3>
+                <ul class="list-unstyled">
+                    <li>Monday - Friday: 9:00 AM - 8:00 PM</li>
+                    <li>Saturday: 10:00 AM - 6:00 PM</li>
+                    <li>Sunday: Closed</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h2>Send Us a Message</h2>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input type="email" class="form-control" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone number (optional)</label>
+                        <input type="tel" class="form-control" id="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea class="form-control" id="message" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+        <div id="jsonOutput" class="mt-4"></div>
+    </main>
+
+    <script src="script.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
