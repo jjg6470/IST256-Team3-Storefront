@@ -4,49 +4,50 @@ document.addEventListener('DOMContentLoaded', function() {
     const nameInput = document.getElementById('signupName');
     const passwordInput = document.getElementById('signupPassword');
     const confirmPasswordInput = document.getElementById('signupConfirmPassword');
+    const jsonOutput = document.getElementById('jsonOutput');
 
-    const emailError = document.createElement('div');
-    const nameError = document.createElement('div');
-    const passwordError = document.createElement('div');
-
-    emailError.classList.add('error-message');
-    nameError.classList.add('error-message');
-    passwordError.classList.add('error-message');
-
-    emailInput.parentElement.appendChild(emailError);
-    nameInput.parentElement.appendChild(nameError);
-    confirmPasswordInput.parentElement.appendChild(passwordError);
+    // Clear any previous error messages
+    function clearErrors() {
+        const errorMessages = signupForm.querySelectorAll('.error-message');
+        errorMessages.forEach(msg => msg.textContent = '');
+    }
 
     // Email validation regex
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     function validateEmail() {
+        clearErrors(); // Clear previous errors
         if (!emailPattern.test(emailInput.value)) {
+            const emailError = emailInput.parentElement.querySelector('.error-message');
             emailError.textContent = "Invalid email format (e.g., john@google.com)";
-            emailInput.classList.add('invalid');
+            emailInput.classList.add('is-invalid');
         } else {
-            emailError.textContent = "";
-            emailInput.classList.remove('invalid');
+            emailInput.classList.remove('is-invalid');
         }
     }
 
     function validateName() {
+        clearErrors(); // Clear previous errors
         if (nameInput.value.length < 1) {
+            const nameError = nameInput.parentElement.querySelector('.error-message');
             nameError.textContent = "Name is required.";
-            nameInput.classList.add('invalid');
+            nameInput.classList.add('is-invalid');
         } else {
-            nameError.textContent = "";
-            nameInput.classList.remove('invalid');
+            nameInput.classList.remove('is-invalid');
         }
     }
 
     function validatePasswords() {
-        if (passwordInput.value !== confirmPasswordInput.value) {
+        clearErrors(); // Clear previous errors
+        const passwordError = confirmPasswordInput.parentElement.querySelector('.error-message');
+        if (passwordInput.value.length < 1) {
+            passwordError.textContent = "Password is required.";
+            passwordInput.classList.add('is-invalid');
+        } else if (passwordInput.value !== confirmPasswordInput.value) {
             passwordError.textContent = "Passwords do not match.";
-            confirmPasswordInput.classList.add('invalid');
+            confirmPasswordInput.classList.add('is-invalid');
         } else {
-            passwordError.textContent = "";
-            confirmPasswordInput.classList.remove('invalid');
+            confirmPasswordInput.classList.remove('is-invalid');
         }
     }
 
@@ -61,7 +62,11 @@ document.addEventListener('DOMContentLoaded', function() {
         validateName();
         validatePasswords();
 
-        if (!emailError.textContent && !nameError.textContent && !passwordError.textContent) {
+        const emailError = emailInput.parentElement.querySelector('.error-message').textContent;
+        const nameError = nameInput.parentElement.querySelector('.error-message').textContent;
+        const passwordError = confirmPasswordInput.parentElement.querySelector('.error-message').textContent;
+
+        if (!emailError && !nameError && !passwordError) {
             console.log("Form is valid, submitting...");
             const formData = {
                 email: emailInput.value,
@@ -70,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 password: passwordInput.value
             };
             console.log('Signup Form Data:', JSON.stringify(formData, null, 2));
+            jsonOutput.textContent = JSON.stringify(formData, null, 2); // Display JSON on the page
         }
     });
 });
