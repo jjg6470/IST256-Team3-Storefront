@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Search</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light"><!--Bootstrap Navbar Implimentation @Joshua Gonzales-->
+        <a class="navbar-brand" href="index.html">Dealership Name</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about.html">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="contact.html">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="cookie&PrivacyPolicies.html">Privacy Policy</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="copyright.html">Copyright</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="signup.html">Sign Up</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="showroom.html">Showroom</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="support&faq.html">Support & FAQ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="termsOfUse.html">Terms of Use</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+<div class="container mt-5">
+    <h2>Search Product</h2>
+    <form id="searchForm" class="form-inline mb-3">
+        <div class="form-group">
+            <label for="productId" class="mr-2">Product ID:</label>
+            <input type="text" id="productId" class="form-control mr-2" placeholder="Enter product ID">
+        </div>
+        <button type="button" class="btn btn-primary" onclick="searchProduct()">Search</button>
+    </form>
+
+    <h3>Product Details</h3>
+    <h4>JSON</h4>
+    <pre id="productDetails" class="bg-light p-3 border">{
+    "productId": "1",
+    "productDesc": "clothing",
+    "productCategory": "Men's Clothing",
+    "productUOM": "Piece",
+    "productPrice": 49.99,
+    "productWeight": 3
+}</pre>
+
+    <button class="btn btn-success btn-block" onclick="updateProduct()">Update</button>
+</div>
+<script>
+    function searchProduct() {
+        const productId = document.getElementById("productId").value;
+        
+        
+        if (productId === "1") {
+            document.getElementById("productDetails").innerText = JSON.stringify({
+                productId: "1",
+                productDesc: "clothing",
+                productCategory: "Men's Clothing",
+                productUOM: "Piece",
+                productPrice: 49.99,
+                productWeight: 3
+            }, null, 2);
+        } else {
+            document.getElementById("productDetails").innerText = "Product not found";
+        }
+    }
+
+    function updateProduct() {
+        alert("Product updated successfully!");
+    }
+</script>
+
+</body>
+</html>
