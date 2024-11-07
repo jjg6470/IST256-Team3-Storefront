@@ -30,12 +30,6 @@
                     <a class="nav-link active" href="contact.html">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="cookie&PrivacyPolicies.html">Privacy Policy</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="copyright.html">Copyright</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="login.html">Login</a>
                 </li>
                 <li class="nav-item">
@@ -45,20 +39,12 @@
                     <a class="nav-link" href="showroom.html">Showroom</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="support&faq.html">Support & FAQ</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="termsOfUse.html">Terms of Use</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="productManagement.html">Product Management</a> 
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="productSearch.html">Product Search</a> 
                 </li>
-                
             </ul>
-            
         </div> 
     </nav>
     <div class="container mt-5">
@@ -74,17 +60,26 @@
         <h3>Product Details</h3>
         <h4>JSON</h4>
         <pre id="productDetails" class="bg-light p-3 border">{
-    "productId": "1",
-    "productDesc": "clothing",
-    "productCategory": "Men's Clothing",
-    "productUOM": "Piece",
-    "productPrice": 49.99,
-    "productWeight": 3
-}</pre>
+            "productId": "1",
+            "productDesc": "clothing",
+            "productCategory": "Men's Clothing",
+            "productUOM": "Piece",
+            "productPrice": 49.99,
+            "productWeight": 3
+            }</pre>
 
         <button class="btn btn-success btn-block" onclick="updateProduct()">Update</button>
         <a href="productManagement.html" class="btn btn-info btn-block mt-3">Go to Product Management</a> <!-- Button to productManagement.html -->
     </div>
+    <footer class="bg-light text-center py-3">
+        <p class="mb-0">&copy; 2024 Dealership Name. All rights reserved.</p>
+        <nav>
+            <a href="cookie&PrivacyPolicies.html" class="mx-2">Privacy Policy</a> |
+            <a href="copyright.html" class="mx-2">Copyright</a> |
+            <a href="support&faq.html" class="mx-2">Support & FAQ</a> |
+            <a href="termsOfUse.html" class="mx-2">Terms of Use</a>
+        </nav>
+    </footer>
     <script>
         function searchProduct() {
             const productId = document.getElementById("productId").value;
