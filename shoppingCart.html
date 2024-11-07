@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light"><!--Bootstrap Navbar Implementation @Joshua Gonzales-->
@@ -59,16 +61,45 @@
             
         </div> 
     </nav>
-    <p>
-    &copy; 2024 CompanyNameHere. All rights reserved.
-    </p>
-    <p>
-    All content on this website, including but not limited to text, graphics, logos, icons, images, audio clips, digital downloads, data compilations, and software, is the property of CompanyNameHere or its content suppliers and is protected by international copyright laws. 
-    The compilation of all content on this site is the exclusive property of 8Figure and is protected by international copyright laws. Unauthorized use, reproduction, modification, distribution, or republication of any content or material from this website without the express written consent of 8Figure is strictly prohibited.
-    </p>
-    <p>
-    For any copyright-related inquiries, please contact us at <a href="malito:support@CompanyNameHere.com">support@CompanyNameHere.com</a>
-    </p>
+
+    <div class="container mt-5">
+        <h2 class="text-center">Shopping Cart</h2>
+        
+        <div class="input-group mb-3">
+            <select class="form-control" id="productSelect">
+                <option>Mens Jeans</option>
+                <option>Womens T-Shirt</option>
+            </select>
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button">Add</button>
+            </div>
+        </div>
+
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th>Product ID</th>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="cartTable">
+                <!--  items will be added here -->
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" class="text-right"><strong>Total:</strong></td>
+                    <td colspan="2" id="totalAmount">$0.00</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <button class="btn btn-success">Checkout</button>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
