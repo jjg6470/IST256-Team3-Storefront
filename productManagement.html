@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+<!-- Product Management Updated by Valeed Anjum -->
+
+
+!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +10,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="style.css" rel="stylesheet">
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="ajax.js"></script>
+    <script src="script.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -120,42 +125,45 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
+
+    <!-- Script Updated by Valeed Anjum -->
+
     <script>
         function validateProductId() {
             const productId = document.getElementById("productId").value;
             return /^[a-zA-Z0-9]+$/.test(productId);
         }
-
+    
         function validateProductDescription() {
             const productDescription = document.getElementById("productDescription").value;
             return productDescription.trim().length > 0;
         }
-
+    
         function validateProductCategory() {
             const productCategory = document.getElementById("productCategory").value;
             return productCategory !== "";
         }
-
+    
         function validateUnitOfMeasure() {
             const unitOfMeasure = document.getElementById("unitOfMeasure").value;
             return unitOfMeasure !== "";
         }
-
+    
         function validateProductPrice() {
             const productPrice = parseFloat(document.getElementById("productPrice").value);
             return !isNaN(productPrice) && productPrice >= 0;
         }
-
+    
         function validateProductWeight() {
             const productWeight = parseFloat(document.getElementById("productWeight").value);
             return !isNaN(productWeight) && productWeight >= 0;
         }
-
+    
         function validateNumItems() {
             const numItems = parseInt(document.getElementById("numItems").value, 10);
             return !isNaN(numItems) && numItems >= 1;
         }
-
+    
         function validateForm() {
             if (
                 validateProductId() &&
@@ -167,41 +175,56 @@
                 validateNumItems()
             ) {
                 return true;
-            } else {
-                alert("Please fill out all fields correctly.");
-                return false;
             }
+            return false;
         }
-
+    
         function submitForm() {
             if (!validateForm()) return;
-
+    
+            // Create product data for cart
             const productData = {
-                "Product ID": document.getElementById("productId").value,
-                "Product Description": document.getElementById("productDescription").value,
-                "Product Category": document.getElementById("productCategory").value,
+                id: document.getElementById("productId").value,
+                name: document.getElementById("productDescription").value,
+                price: parseFloat(document.getElementById("productPrice").value),
+                category: document.getElementById("productCategory").value
+            };
+    
+            // Get existing products
+            let products = [];
+            try {
+                products = JSON.parse(localStorage.getItem('products')) || [];
+            } catch (e) {
+                products = [];
+            }
+    
+            // Update or add product
+            const existingIndex = products.findIndex(p => p.id === productData.id);
+            if (existingIndex !== -1) {
+                products[existingIndex] = productData;
+            } else {
+                products.push(productData);
+            }
+    
+            // Save to localStorage
+            localStorage.setItem('products', JSON.stringify(products));
+    
+            // Create full product data for display
+            const fullProductData = {
+                "Product ID": productData.id,
+                "Product Description": productData.name,
+                "Product Category": productData.category,
                 "Product Unit of Measure": document.getElementById("unitOfMeasure").value,
-                "Product Price": parseFloat(document.getElementById("productPrice").value),
+                "Product Price": productData.price,
                 "Product Weight": parseFloat(document.getElementById("productWeight").value),
                 "Number of Items": parseInt(document.getElementById("numItems").value, 10)
             };
-            displayJSON(productData);
-
-            // fetch("serverAjax", {
-            //     method: "POST",
-            //     headers: {
-            //         "Content-Type": "application/json"
-            //     },
-            //     body: JSON.stringify(productData)
-            // })
-            // .then(response => response.json())
-            // .then(data => {
-            //     alert("Product data saved successfully!");
-            //     displayJSON(productData);
-            // })
-            // .catch(error => console.error("Error:", error));
+            
+            // Display JSON and clear form
+            displayJSON(fullProductData);
+            document.getElementById("productForm").reset();
         }
-
+    
         function displayJSON(productData) {
             document.getElementById("jsonOutput").textContent = JSON.stringify(productData, null, 4);
         }
