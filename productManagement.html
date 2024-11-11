@@ -129,6 +129,17 @@
     <!-- Script Updated by Valeed Anjum -->
 
     <script>
+        // Initialize products on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!localStorage.getItem('products')) {
+                const initialProducts = [
+                    { id: "001", name: "Mens Jeans", price: 59.99, category: "Men's Clothing" },
+                    { id: "004", name: "Womens T-Shirt", price: 19.99, category: "Women's Clothing" }
+                ];
+                localStorage.setItem('products', JSON.stringify(initialProducts));
+            }
+        });
+    
         function validateProductId() {
             const productId = document.getElementById("productId").value;
             return /^[a-zA-Z0-9]+$/.test(productId);
@@ -182,52 +193,76 @@
         function submitForm() {
             if (!validateForm()) return;
     
-            // Create product data for cart
-            const productData = {
+            // Get the current products from localStorage
+            let products = [];
+            try {
+                products = JSON.parse(localStorage.getItem('products')) || [];
+            } catch (e) {
+                console.error("Error reading products:", e);
+                products = [];
+            }
+    
+            // Create the new product data
+            const newProduct = {
                 id: document.getElementById("productId").value,
                 name: document.getElementById("productDescription").value,
                 price: parseFloat(document.getElementById("productPrice").value),
                 category: document.getElementById("productCategory").value
             };
     
-            // Get existing products
-            let products = [];
-            try {
-                products = JSON.parse(localStorage.getItem('products')) || [];
-            } catch (e) {
-                products = [];
-            }
-    
-            // Update or add product
-            const existingIndex = products.findIndex(p => p.id === productData.id);
+            // Check if product already exists
+            const existingIndex = products.findIndex(p => p.id === newProduct.id);
             if (existingIndex !== -1) {
-                products[existingIndex] = productData;
+                // Update existing product
+                products[existingIndex] = newProduct;
             } else {
-                products.push(productData);
+                // Add new product
+                products.push(newProduct);
             }
     
-            // Save to localStorage
-            localStorage.setItem('products', JSON.stringify(products));
+            // Save updated products to localStorage
+            try {
+                localStorage.setItem('products', JSON.stringify(products));
+                console.log("Products saved:", products); // Debug log
+            } catch (e) {
+                console.error("Error saving products:", e);
+            }
     
             // Create full product data for display
             const fullProductData = {
-                "Product ID": productData.id,
-                "Product Description": productData.name,
-                "Product Category": productData.category,
+                "Product ID": newProduct.id,
+                "Product Description": newProduct.name,
+                "Product Category": newProduct.category,
                 "Product Unit of Measure": document.getElementById("unitOfMeasure").value,
-                "Product Price": productData.price,
+                "Product Price": newProduct.price,
                 "Product Weight": parseFloat(document.getElementById("productWeight").value),
                 "Number of Items": parseInt(document.getElementById("numItems").value, 10)
             };
             
-            // Display JSON and clear form
+            // Display JSON
             displayJSON(fullProductData);
+    
+            // Clear the form
             document.getElementById("productForm").reset();
+    
+            // Log current state of products for debugging
+            console.log("Current products in storage:", JSON.parse(localStorage.getItem('products')));
         }
     
         function displayJSON(productData) {
             document.getElementById("jsonOutput").textContent = JSON.stringify(productData, null, 4);
         }
+    
+        // Function to check current storage state (for debugging)
+        function checkStorage() {
+            console.log("Current products:", JSON.parse(localStorage.getItem('products')));
+            console.log("Current cart:", JSON.parse(localStorage.getItem('cart')));
+        }
+    
+        // Check storage on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            checkStorage();
+        });
     </script>
 </body>
 </html>
