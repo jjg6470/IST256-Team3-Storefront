@@ -85,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 /* Shopping Cart and Product Management Script Implementation by Valeed Anjum */
+
 $(document).ready(function() {
     // Initialize storage and load data
     initializeStorage();
@@ -110,6 +111,11 @@ $(document).ready(function() {
             const select = $('#productSelect');
             select.empty();
             
+            // Add a default option
+            select.append(`
+                <option value="" disabled selected>Select a product</option>
+            `);
+            
             products.forEach(product => {
                 select.append(`
                     <option value="${product.id}" id="product_${product.id}" name="product_${product.id}">
@@ -117,6 +123,8 @@ $(document).ready(function() {
                     </option>
                 `);
             });
+
+            console.log("Loaded products:", products); // Debug log
         } catch (e) {
             console.error("Error loading products:", e);
         }
@@ -170,7 +178,7 @@ $(document).ready(function() {
             `);
         });
 
-        $('#totalAmount').text($${total.toFixed(2)});
+        $('#totalAmount').text(`$${total.toFixed(2)}`);
     }
 
     // Add to cart button click handler
@@ -261,23 +269,11 @@ $(document).ready(function() {
 // Global function to remove items from cart
 window.removeCartItem = function(productId) {
     try {
-        console.log("Removing product:", productId);
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        console.log("Before removal:", cart);
-        
-        // Filter out the item to remove
         cart = cart.filter(item => item.id !== productId);
-        console.log("After removal:", cart);
-        
-        // Save the updated cart
         localStorage.setItem('cart', JSON.stringify(cart));
-        
-        // Reload the cart display
         const updatedCart = JSON.parse(localStorage.getItem('cart')) || [];
         updateCartDisplay(updatedCart);
-        
-        // Update the total
-        updateTotal();
     } catch (e) {
         console.error("Error removing item from cart:", e);
     }
@@ -323,16 +319,16 @@ window.updateCartDisplay = function(cart) {
         `);
     });
 
-    $('#totalAmount').text($${total.toFixed(2)});
+    $('#totalAmount').text(`$${total.toFixed(2)}`);
 };
 
-// Global function to update total
-window.updateTotal = function() {
-    try {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        $('#totalAmount').text($${total.toFixed(2)});
-    } catch (e) {
-        console.error("Error updating total:", e);
-    }
+// Debug function to check localStorage content
+window.checkStorage = function() {
+    console.log("Products:", JSON.parse(localStorage.getItem('products')));
+    console.log("Cart:", JSON.parse(localStorage.getItem('cart')));
 };
+
+// Call checkStorage on page load to debug
+$(document).ready(function() {
+    checkStorage();
+});
