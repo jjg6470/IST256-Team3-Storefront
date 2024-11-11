@@ -85,8 +85,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 /* Shopping Cart and Product Management Script Implementation by Valeed Anjum */
-
 $(document).ready(function() {
+    // Initialize storage and load data
     initializeStorage();
     loadProducts();
     loadCart();
@@ -110,11 +110,12 @@ $(document).ready(function() {
             const select = $('#productSelect');
             select.empty();
             
-            select.append(<option value="" id="default-option" name="default-option">Select a product</option>);
             products.forEach(product => {
-                select.append(`<option value="${product.id}" id="product-${product.id}" name="product-${product.id}">
-                    ${product.name} - $${product.price.toFixed(2)}
-                </option>`);
+                select.append(`
+                    <option value="${product.id}" id="product_${product.id}" name="product_${product.id}">
+                        ${product.name} - $${product.price.toFixed(2)}
+                    </option>
+                `);
             });
         } catch (e) {
             console.error("Error loading products:", e);
@@ -141,26 +142,26 @@ $(document).ready(function() {
             total += itemTotal;
             
             tbody.append(`
-                <tr id="cart-row-${item.id}" name="cart-row-${item.id}">
-                    <td id="product-id-${item.id}" name="product-id-${item.id}">${item.id}</td>
-                    <td id="product-name-${item.id}" name="product-name-${item.id}">${item.name}</td>
-                    <td id="product-price-${item.id}" name="product-price-${item.id}">$${item.price.toFixed(2)}</td>
+                <tr id="row_${item.id}">
+                    <td>${item.id}</td>
+                    <td>${item.name}</td>
+                    <td>$${item.price.toFixed(2)}</td>
                     <td>
                         <input type="number" 
                                class="form-control quantity-input" 
+                               id="qty_${item.id}"
+                               name="qty_${item.id}"
                                value="${item.quantity}" 
                                min="1"
-                               id="quantity-input-${item.id}"
-                               name="quantity-input-${item.id}"
-                               data-product-id="${item.id}"
-                               aria-label="Quantity for ${item.name}">
+                               data-product-id="${item.id}">
                     </td>
-                    <td id="item-total-${item.id}" name="item-total-${item.id}">$${itemTotal.toFixed(2)}</td>
+                    <td id="total_${item.id}">$${itemTotal.toFixed(2)}</td>
                     <td>
                         <button type="button"
                                 class="btn btn-danger btn-sm remove-item" 
-                                id="remove-button-${item.id}"
-                                name="remove-button-${item.id}"
+                                id="remove_${item.id}"
+                                name="remove_${item.id}"
+                                onclick="removeCartItem('${item.id}')"
                                 data-product-id="${item.id}">
                             Remove
                         </button>
@@ -229,25 +230,7 @@ $(document).ready(function() {
         }
     }
 
-    // Handle remove button clicks
-    $(document).on('click', '.remove-item', function() {
-        const productId = $(this).data('product-id');
-        removeFromCart(productId);
-    });
-
-    // Remove from cart
-    function removeFromCart(productId) {
-        try {
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            cart = cart.filter(item => item.id !== productId);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            loadCart();
-        } catch (e) {
-            console.error("Error removing from cart:", e);
-        }
-    }
-
-    // Handle checkout button
+    // Handle checkout
     $('#checkout-btn').click(function() {
         try {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -261,24 +244,95 @@ $(document).ready(function() {
                 }));
 
                 $('#jsonDisplay').remove();
-                $('.container').append(
-                    $('<div>').attr({
-                        'id': 'jsonDisplay',
-                        'name': 'jsonDisplay'
-                    })
-                    .addClass('mt-3')
-                    .append($('<pre>')
-                        .addClass('p-3 bg-light border rounded')
-                        .attr({
-                            'id': 'jsonContent',
-                            'name': 'jsonContent'
-                        })
-                        .text(JSON.stringify(checkoutItems, null, 2))
-                    )
-                );
+                $('.container').append(`
+                    <div id="jsonDisplay" class="mt-3">
+                        <pre id="json-content" class="p-3 bg-light border rounded">
+                            ${JSON.stringify(checkoutItems, null, 2)}
+                        </pre>
+                    </div>
+                `);
             }
         } catch (e) {
             console.error("Error processing checkout:", e);
         }
     });
 });
+
+// Global function to remove items from cart
+window.removeCartItem = function(productId) {
+    try {
+        console.log("Removing product:", productId);
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        console.log("Before removal:", cart);
+        
+        // Filter out the item to remove
+        cart = cart.filter(item => item.id !== productId);
+        console.log("After removal:", cart);
+        
+        // Save the updated cart
+        localStorage.setItem('cart', JSON.stringify(cart));
+        
+        // Reload the cart display
+        const updatedCart = JSON.parse(localStorage.getItem('cart')) || [];
+        updateCartDisplay(updatedCart);
+        
+        // Update the total
+        updateTotal();
+    } catch (e) {
+        console.error("Error removing item from cart:", e);
+    }
+};
+
+// Global function to update cart display
+window.updateCartDisplay = function(cart) {
+    const tbody = $('#cartTable');
+    tbody.empty();
+    
+    let total = 0;
+    
+    cart.forEach((item) => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+        
+        tbody.append(`
+            <tr id="row_${item.id}">
+                <td>${item.id}</td>
+                <td>${item.name}</td>
+                <td>$${item.price.toFixed(2)}</td>
+                <td>
+                    <input type="number" 
+                           class="form-control quantity-input" 
+                           id="qty_${item.id}"
+                           name="qty_${item.id}"
+                           value="${item.quantity}" 
+                           min="1"
+                           data-product-id="${item.id}">
+                </td>
+                <td id="total_${item.id}">$${itemTotal.toFixed(2)}</td>
+                <td>
+                    <button type="button"
+                            class="btn btn-danger btn-sm remove-item" 
+                            id="remove_${item.id}"
+                            name="remove_${item.id}"
+                            onclick="removeCartItem('${item.id}')"
+                            data-product-id="${item.id}">
+                        Remove
+                    </button>
+                </td>
+            </tr>
+        `);
+    });
+
+    $('#totalAmount').text($${total.toFixed(2)});
+};
+
+// Global function to update total
+window.updateTotal = function() {
+    try {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        $('#totalAmount').text($${total.toFixed(2)});
+    } catch (e) {
+        console.error("Error updating total:", e);
+    }
+};
