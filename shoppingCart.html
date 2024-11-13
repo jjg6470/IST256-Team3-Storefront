@@ -1,3 +1,5 @@
+<!-- Shopping Cart Updated by Valeed Anjum -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +9,9 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="style.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="ajax.js"></script>
+    <script src="script.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light"><!--Bootstrap Navbar Implementation @Joshua Gonzales-->
@@ -14,6 +19,7 @@
         <a class="nav-link ml-auto order-lg-2" href="shoppingCart.html" style="display: flex; align-items: center;">
             <i class="fas fa-shopping-cart"></i>
             <span class="ml-1 d-none d-lg-inline">Cart</span>
+            
         </a>
         <button class="navbar-toggler order-lg-1" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -52,38 +58,38 @@
         <h2 class="text-center">Shopping Cart</h2>
         
         <div class="input-group mb-3">
-            <select class="form-control" id="productSelect">
-                <option>Mens Jeans</option>
-                <option>Womens T-Shirt</option>
+            <select class="form-control" id="productSelect" name="productSelect">
+                <!-- Options will be populated by JavaScript -->
             </select>
             <div class="input-group-append">
-                <button class="btn btn-primary" type="button">Add</button>
+                <button class="btn btn-primary" type="button" id="add-to-cart-btn" name="add-to-cart-btn">Add</button>
             </div>
         </div>
-
+    
         <table class="table table-bordered">
             <thead class="thead-light">
                 <tr>
-                    <th>Product ID</th>
-                    <th>Product Name</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
-                    <th>Action</th>
+                    <th id="header-id" name="header-id">Product ID</th>
+                    <th id="header-name" name="header-name">Product Name</th>
+                    <th id="header-price" name="header-price">Price</th>
+                    <th id="header-quantity" name="header-quantity">Quantity</th>
+                    <th id="header-total" name="header-total">Total</th>
+                    <th id="header-action" name="header-action">Action</th>
                 </tr>
             </thead>
-            <tbody id="cartTable">
-                <!--  items will be added here -->
+            <tbody id="cartTable" name="cartTable">
+                <!-- Cart items will be added here -->
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="4" class="text-right"><strong>Total:</strong></td>
-                    <td colspan="2" id="totalAmount">$0.00</td>
+                    <td colspan="4" class="text-right" id="total-label" name="total-label"><strong>Total:</strong></td>
+                    <td colspan="2" id="totalAmount" name="totalAmount">$0.00</td>
                 </tr>
             </tfoot>
         </table>
-
-        <button class="btn btn-success">Checkout</button>
+    
+        <button class="btn btn-success" id="checkout-btn" name="checkout-btn">Checkout</button>
+        <div id="jsonDisplay" name="jsonDisplay" class="mt-3"></div>
     </div>
     <footer class="bg-light text-center py-3">
         <p class="mb-0">&copy; 2024 Dealership Name. All rights reserved.</p>
@@ -94,6 +100,12 @@
             <a href="termsOfUse.html" class="mx-2">Terms of Use</a>
         </nav>
     </footer>
+    <script>
+        $(document).ready(function() {
+            console.log("Products in storage:", localStorage.getItem('products'));
+            console.log("Parsed products:", JSON.parse(localStorage.getItem('products')));
+        });
+    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
