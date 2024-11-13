@@ -23,6 +23,7 @@ $(document).ready(function() {
             'productDescription': 'Product Description',
             'productCategory': 'Product Category',
             'productUOM': 'Unit of Measure',
+            'productAmount': 'Amount',
             'productPrice': 'Product Price'
         };
 
@@ -40,6 +41,7 @@ $(document).ready(function() {
                 description: $('#productDescription').val(),
                 category: $('#productCategory').val(),
                 unitOfMeasure: $('#productUOM').val(),
+                productAmount: $('#productAmount').val(),
                 price: parseFloat($('#productPrice').val()).toFixed(2),
                 weight: $('#productWeight').val() ? parseFloat($('#productWeight').val()).toFixed(1) : null
             };

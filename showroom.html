@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- This Showroom Page is Designed by:
-Name: Valeed Anjum
-Course: IST 256 section 001
-Storefront: Shopper Management Web Page
--->
+
 
 
 <head>
@@ -74,74 +70,10 @@ Storefront: Shopper Management Web Page
                     <h4>Search Results:</h4>
                     <div id="searchJsonOutput"></div>
                 </div>
-            </div>
-
-            <!-- Product Details Form -->
-            <form id="productForm">
-                <h3>Product Details</h3>
-                
-                <div class="form-group">
-                    <label for="productId">Product ID</label>
-                    <input type="text" id="productId" class="form-control" required>
-                    <div class="invalid-feedback"></div>
-                </div>
-
-                <div class="form-group">
-                    <label for="productDescription">Product Description</label>
-                    <textarea id="productDescription" class="form-control" rows="3" required></textarea>
-                    <div class="invalid-feedback"></div>
-                </div>
-
-                <div class="form-group">
-                    <label for="productCategory">Product Category</label>
-                    <select id="productCategory" class="form-control" required>
-                        <option value="">Select Category</option>
-                        <option value="sedan">Sedan</option>
-                        <option value="suv">SUV</option>
-                        <option value="truck">Truck</option>
-                        <option value="van">Van</option>
-                        <option value="sports">Sports Car</option>
-                    </select>
-                    <div class="invalid-feedback"></div>
-                </div>
-
-                <div class="form-group">
-                    <label for="productUOM">Unit of Measure</label>
-                    <select id="productUOM" class="form-control" required>
-                        <option value="">Select UOM</option>
-                        <option value="each">Each</option>
-                        <option value="pair">Pair</option>
-                        <option value="set">Set</option>
-                    </select>
-                    <div class="invalid-feedback"></div>
-                </div>
-
-                <div class="form-group">
-                    <label for="productPrice">Product Price</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">$</span>
-                        </div>
-                        <input type="number" id="productPrice" class="form-control" step="0.01" min="0" required>
-                        <div class="invalid-feedback"></div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="productWeight">Product Weight (lbs)</label>
-                    <input type="number" id="productWeight" class="form-control" step="0.1" min="0">
-                    <div class="invalid-feedback"></div>
-                </div>
-
-                <div class="text-center mb-3">
-                    <button type="submit" class="btn btn-success btn-lg px-5">Save</button>
-                </div>
-                <div id="saveMessage" class="alert alert-success text-center d-none">
-                    Product saved successfully!
-                </div>
-            </form>
+            </div>     
         </div>
     </div>
+    
     <footer class="bg-light text-center py-3">
         <p class="mb-0">&copy; 2024 Dealership Name. All rights reserved.</p>
         <nav>

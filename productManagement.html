@@ -1,29 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- This Showroom Page is Designed by:
+Name: Valeed Anjum
+Course: IST 256 section 001
+Storefront: Shopper Management Web Page
+-->
+
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Management</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="style.css" rel="stylesheet">
-
+    <title>Product Management - Dealership Name</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light"><!--Bootstrap Navbar Implementation @Joshua Gonzales-->
         <a class="navbar-brand" href="index.html">Dealership Name</a>
-    
-        <a class="nav-link ms-auto me-3 order-lg-2" href="shoppingCart.html" style="color: #007bff; display: flex; align-items: center;">
+        <a class="nav-link ml-auto order-lg-2" href="shoppingCart.html" style="display: flex; align-items: center;">
             <i class="fas fa-shopping-cart"></i>
             <span class="ml-1 d-none d-lg-inline">Cart</span>
         </a>
-    
         <button class="navbar-toggler order-lg-1" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-    
-        <div class="collapse navbar-collapse ms-auto" id="navbarNav" style="align-items: right;">
-            <ul class="navbar-nav">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="index.html">Home</a>
                 </li>
@@ -43,68 +46,106 @@
                     <a class="nav-link" href="showroom.html">Showroom</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="productManagement.html">Product Management</a>
+                    <a class="nav-link" href="productManagement.html">Product Management</a> 
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="productSearch.html">Product Search</a>
+                    <a class="nav-link" href="productSearch.html">Product Search</a> 
                 </li>
             </ul>
-        </div>
+        </div>  
     </nav>
-    
-    
-    
-    
-    
 
     <div class="container mt-5">
-        <h2 class="mb-4">Product Management</h2>
-        <form id="productForm">
-            <div class="mb-3">
-                <label for="productId" class="form-label">Product ID:</label>
-                <input type="text" class="form-control" id="productId" required pattern="^[a-zA-Z0-9]+$" title="Alphanumeric only">
+        <div class="card shadow-sm p-4">
+            <h2 class="text-center mb-4">Product Management</h2>
+            
+            <!-- Search Section -->
+            <div class="mb-5">
+                <h3>Search Product</h3>
+                <div class="form-group">
+                    <label for="searchProductId">Product ID</label>
+                    <input type="text" id="searchProductId" class="form-control">
+                    <div class="invalid-feedback"></div>
+                </div>
+                <button id="searchBtn" class="btn btn-primary mt-2">Search</button>
+                
+                <!-- Search Results Section -->
+                <div id="searchResults" class="mt-3 bg-light p-3 rounded d-none">
+                    <h4>Search Results:</h4>
+                    <div id="searchJsonOutput"></div>
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="productDescription" class="form-label">Product Description:</label>
-                <input type="text" class="form-control" id="productDescription" required>
-            </div>
-            <div class="mb-3">
-                <label for="productCategory" class="form-label">Product Category:</label>
-                <select class="form-select" id="productCategory" required>
-                    <option value="" disabled selected>Select category</option>
-                    <option>Men's Clothing</option>
-                    <option>Women's Clothing</option>
-                    <option>Children's Clothing</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="unitOfMeasure" class="form-label">Product Unit of Measure:</label>
-                <select class="form-select" id="unitOfMeasure" required>
-                    <option value="" disabled selected>Select unit</option>
-                    <option>Piece</option>
-                    <option>Box</option>
-                    <option>Pack</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="productPrice" class="form-label">Product Price:</label>
-                <input type="number" class="form-control" id="productPrice" required min="0" step="0.01">
-            </div>
-            <div class="mb-3">
-                <label for="productWeight" class="form-label">Product Weight:</label>
-                <input type="number" class="form-control" id="productWeight" required min="0" step="0.1">
-            </div>
-            <div class="mb-3">
-                <label for="numItems" class="form-label">Number of Items:</label>
-                <input type="number" class="form-control" id="numItems" required min="1" step="1">
-            </div>
-            <button type="button" class="btn btn-success" onclick="submitForm()">Save</button>
-            <a href="productSearch.html" class="btn btn-outline-info ml-2">Search Products</a>
-        </form>
 
-        <div class="mt-4">
-            <h4>JSON Document:</h4>
-            <pre id="jsonOutput"></pre>
+            <!-- Product Details Form -->
+            <form id="productForm">
+                <h3>Product Details</h3>
+                
+                <div class="form-group">
+                    <label for="productId">Product ID</label>
+                    <input type="text" id="productId" class="form-control" required>
+                    <div class="invalid-feedback"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="productDescription">Product Description</label>
+                    <textarea id="productDescription" class="form-control" rows="3" required></textarea>
+                    <div class="invalid-feedback"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="productCategory">Product Category</label>
+                    <select id="productCategory" class="form-control" required>
+                        <option value="">Select Category</option>
+                        <option value="sedan">Sedan</option>
+                        <option value="suv">SUV</option>
+                        <option value="truck">Truck</option>
+                        <option value="van">Van</option>
+                        <option value="sports">Sports Car</option>
+                    </select>
+                    <div class="invalid-feedback"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="productUOM">Unit of Measure</label>
+                    <select id="productUOM" class="form-control" required>
+                        <option value="">Select UOM</option>
+                        <option value="each">Each</option>
+                        <option value="pair">Pair</option>
+                        <option value="set">Set</option>
+                    </select>
+                    <div class="invalid-feedback"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="Amount"> Amount</label>
+                    <input type="text" id="productAmount" class="form-control" required>
+                    <div class="invalid-feedback"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="productPrice">Product Price</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">$</span>
+                        </div>
+                        <input type="number" id="productPrice" class="form-control" step="0.01" min="0" required>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="productWeight">Product Weight (lbs)</label>
+                    <input type="number" id="productWeight" class="form-control" step="0.1" min="0">
+                    <div class="invalid-feedback"></div>
+                </div>
+
+                <div class="text-center mb-3">
+                    <button type="submit" class="btn btn-success btn-lg px-5">Save</button>
+                </div>
+                <div id="saveMessage" class="alert alert-success text-center d-none">
+                    Product saved successfully!
+                </div>
+            </form>
         </div>
     </div>
     <footer class="bg-light text-center py-3">
@@ -116,95 +157,11 @@
             <a href="termsOfUse.html" class="mx-2">Terms of Use</a>
         </nav>
     </footer>
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
-    <script>
-        function validateProductId() {
-            const productId = document.getElementById("productId").value;
-            return /^[a-zA-Z0-9]+$/.test(productId);
-        }
+    <script src="product.js"></script>
 
-        function validateProductDescription() {
-            const productDescription = document.getElementById("productDescription").value;
-            return productDescription.trim().length > 0;
-        }
-
-        function validateProductCategory() {
-            const productCategory = document.getElementById("productCategory").value;
-            return productCategory !== "";
-        }
-
-        function validateUnitOfMeasure() {
-            const unitOfMeasure = document.getElementById("unitOfMeasure").value;
-            return unitOfMeasure !== "";
-        }
-
-        function validateProductPrice() {
-            const productPrice = parseFloat(document.getElementById("productPrice").value);
-            return !isNaN(productPrice) && productPrice >= 0;
-        }
-
-        function validateProductWeight() {
-            const productWeight = parseFloat(document.getElementById("productWeight").value);
-            return !isNaN(productWeight) && productWeight >= 0;
-        }
-
-        function validateNumItems() {
-            const numItems = parseInt(document.getElementById("numItems").value, 10);
-            return !isNaN(numItems) && numItems >= 1;
-        }
-
-        function validateForm() {
-            if (
-                validateProductId() &&
-                validateProductDescription() &&
-                validateProductCategory() &&
-                validateUnitOfMeasure() &&
-                validateProductPrice() &&
-                validateProductWeight() &&
-                validateNumItems()
-            ) {
-                return true;
-            } else {
-                alert("Please fill out all fields correctly.");
-                return false;
-            }
-        }
-
-        function submitForm() {
-            if (!validateForm()) return;
-
-            const productData = {
-                "Product ID": document.getElementById("productId").value,
-                "Product Description": document.getElementById("productDescription").value,
-                "Product Category": document.getElementById("productCategory").value,
-                "Product Unit of Measure": document.getElementById("unitOfMeasure").value,
-                "Product Price": parseFloat(document.getElementById("productPrice").value),
-                "Product Weight": parseFloat(document.getElementById("productWeight").value),
-                "Number of Items": parseInt(document.getElementById("numItems").value, 10)
-            };
-            displayJSON(productData);
-
-            // fetch("serverAjax", {
-            //     method: "POST",
-            //     headers: {
-            //         "Content-Type": "application/json"
-            //     },
-            //     body: JSON.stringify(productData)
-            // })
-            // .then(response => response.json())
-            // .then(data => {
-            //     alert("Product data saved successfully!");
-            //     displayJSON(productData);
-            // })
-            // .catch(error => console.error("Error:", error));
-        }
-
-        function displayJSON(productData) {
-            document.getElementById("jsonOutput").textContent = JSON.stringify(productData, null, 4);
-        }
-    </script>
 </body>
 </html>
