@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="billingApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shipping Carrier Information</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-controller = "ShippingController" class="container mt-5">
+    <h2>Shipping Carrier Information</h2>
+    <form>
+        <div class = "form-group">
+            <label for = "address">Address:</label>
+            <input type ="text" id ="address" class = "form-control" ng-model = "address" required>
+        </div>
+        <div class = "form-group">
+            <label for = "city">City:</label>
+            <input type ="text" id ="city" class = "form-control" ng-model = "city" required>
+        </div>
+        <div class = "form-group">
+            <label for = "State">State:</label>
+            <input type ="text" id ="state" class = "form-control" ng-model = "state" required>
+        </div>
+        <div class = "form-group">
+            <label for = "zip">Zip Code:</label>
+            <input type ="text" id ="zip" class = "form-control" ng-model = "zip" required>
+        </div>
+        <div class = "form-group">
+            <label for = "carrier">Select shipping carrier:</label>
+            <select id="carrier" class="form-control" ng-model="carrierName">
+                <option value= "fedex">FedEx</option>
+                <option value= "usps">USPS</option>
+                <option value= "ups">UPS</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="method">Select shipping method:</label>
+            <select id="method" class="form-control" ng-model="shippingMethod">
+                <option value= "overnight">Overnight</option>
+                <option value= "two-day">Two-Day</option>
+                <option value= "free">Free</option>
+            </select>
+        </div>
+        <button type="button" class="btn btn-primary" ng-click="displayJSON()">Submit</button>
+    </form>
+
+    <div class="mt-4" ng-show="showJSON">
+        <h4>Shipping Information:</h4>
+        <pre>{{ shippingInfoJSON | json}}</pre>
+    </div>
+
+    <script>
+                
