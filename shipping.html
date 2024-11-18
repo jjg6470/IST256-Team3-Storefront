@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shipping Carrier Information</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 </head>
 
@@ -55,4 +58,22 @@
     </div>
 
     <script>
-                
+       angular.module('billingApp', []).controller('ShippingController', function ($scope) {
+            $scope.displayJSON = function () {
+                if ($scope.address && $scope.city && $scope.state && $scope.zip && $scope.carrierName && $scope.shippingMethod) {
+                    $scope.shippingInfoJSON = {
+                        address: $scope.address,
+                        city: $scope.city,
+                        state: $scope.state,
+                        zip: $scope.zip,
+                        carrierName: $scope.carrierName,
+                        shippingMethod: $scope.shippingMethod
+                    };
+                    $scope.showJSON = true;
+                }
+            };
+        });
+    </script>
+</body>
+
+</html>
