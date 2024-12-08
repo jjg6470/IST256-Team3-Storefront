@@ -1,61 +1,105 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="billingApp">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shipping Carrier Information</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-    <script src="angular.js"></script> <!-- External AngularJS file -->
+    <title>Shipping Information - Dealership Name</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a href="index.html" class="navbar-brand">Dealership Name</a>
+        <a href="shoppingCart.html" class="nav-link ml-auto order-lg-2" style="display: flex; align-items: center;">
+            <span class="ml-1 d-none d-lg-inline">Cart</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="navbarNav" class="collapse navbar-collapse">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                <li class="nav-item"><a href="login.html" class="nav-link">Login</a></li>
+                <li class="nav-item"><a href="signup.html" class="nav-link">Sign Up</a></li>
+                <li class="nav-item"><a href="showroom.html" class="nav-link">Showroom</a></li>
+                <li class="nav-item"><a href="productManagement.html" class="nav-link">Product Management</a></li>
+                <li class="nav-item"><a href="productSearch.html" class="nav-link">Product Search</a></li>
+            </ul>
+        </div>
+    </nav>
 
-<body ng-controller="ShippingController" class="container mt-5">
-<h2>Shipping Carrier Information</h2>
-<form>
-    <div class="form-group">
-        <label for="address">Address:</label>
-        <input type="text" id="address" class="form-control" ng-model="address" required>
-    </div>
-    <div class="form-group">
-        <label for="city">City:</label>
-        <input type="text" id="city" class="form-control" ng-model="city" required>
-    </div>
-    <div class="form-group">
-        <label for="state">State:</label>
-        <input type="text" id="state" class="form-control" ng-model="state" required>
-    </div>
-    <div class="form-group">
-        <label for="zip">Zip Code:</label>
-        <input type="text" id="zip" class="form-control" ng-model="zip" required>
-    </div>
-    <div class="form-group">
-        <label for="carrier">Select shipping carrier:</label>
-        <select id="carrier" class="form-control" ng-model="carrierName">
-            <option value="fedex">FedEx</option>
-            <option value="usps">USPS</option>
-            <option value="ups">UPS</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="method">Select shipping method:</label>
-        <select id="method" class="form-control" ng-model="shippingMethod">
-            <option value="overnight">Overnight</option>
-            <option value="two-day">Two-Day</option>
-            <option value="free">Free</option>
-        </select>
-    </div>
-    <button type="button" class="btn btn-primary" ng-click="displayJSON()">Submit</button>
-</form>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <form id="shippingForm" class="card p-4">
+                    <h3 class="mb-4">Shipping Information</h3>
 
-<div class="mt-4" ng-show="showJSON">
-    <h4>Shipping Information:</h4>
-    <pre>{{ shippingInfoJSON | json }}</pre>
-</div>
+                    <div class="form-group">
+                        <label for="shippingAddress">Address:</label>
+                        <input type="text" class="form-control" id="shippingAddress" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="shippingCity">City:</label>
+                        <input type="text" class="form-control" id="shippingCity" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="shippingState">State:</label>
+                        <input type="text" class="form-control" id="shippingState" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="shippingZip">Zip Code:</label>
+                        <input type="text" class="form-control" id="shippingZip" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="shippingCarrier">Select shipping carrier:</label>
+                        <select class="form-control" id="shippingCarrier" required>
+                            <option value="">Choose a carrier</option>
+                            <option value="FedEx">FedEx</option>
+                            <option value="USPS">USPS</option>
+                            <option value="UPS">UPS</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="shippingMethod">Select shipping method:</label>
+                        <select class="form-control" id="shippingMethod" required>
+                            <option value="">Choose a method</option>
+                            <option value="Overnight">Overnight</option>
+                            <option value="Two-Day">Two-Day</option>
+                            <option value="Free">Free Ground Shipping</option>
+                        </select>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="billingDetails.html" class="btn btn-secondary">Back to Billing</a>
+                        <button type="submit" class="btn btn-primary">Complete Order</button>
+                    </div>
+
+                    <div class="mt-4 ng-show="showJSON" id="jsonDisplay"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-5 py-3 text-center">
+        <p>© 2024 Dealership Name. All rights reserved.</p>
+        <div>
+            <a href="cookie&PrivacyPolicies.html" class="mx-2">Privacy Policy</a> |
+            <a href="copyright.html" class="mx-2">Copyright</a> |
+            <a href="support&faq.html" class="mx-2">Support & FAQ</a> |
+            <a href="termsOfUse.html" class="mx-2">Terms of Use</a>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="mongo.js"></script>
+    <script src="script.js"></script>
 </body>
-
 </html>
