@@ -1,28 +1,44 @@
-async function logToMongo(cartItems, billingDetails, shippingDetais) {
-    const logEntry = {
-        cartItems: cartItems,
-        billingDetails: billingDetails,
-        shippingDetais: shippingDetais,
-        timestamp: new Date().toISOString()
-    };
-
-    const server = "mongodb://team3:team3@localhost:27017";
-
+async function logToMongo(cartItems, billingDetails, shippingDetails) {
     try {
-        const response = await fetch(server, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(logEntry)
-        });
-
-        if (response.ok) {
-            console.log(`Logged action: ${action}, status: ${status}`);
-        } else {
-            console.error(`Failed to log action. Status code: ${response.status}`);
+        // Log cart items
+        if (cartItems) {
+            const cartResponse = await fetch('http://localhost:3000/api/cart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ items: cartItems, timestamp: new Date().toISOString() })
+            });
+            if (!cartResponse.ok) throw new Error('Failed to save cart items');
         }
+
+        // Log billing details
+        if (billingDetails) {
+            const billingResponse = await fetch('http://localhost:3000/api/billing', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ ...billingDetails, timestamp: new Date().toISOString() })
+            });
+            if (!billingResponse.ok) throw new Error('Failed to save billing details');
+        }
+
+        // Log shipping details
+        if (shippingDetails) {
+            const shippingResponse = await fetch('http://localhost:3000/api/shipping', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ ...shippingDetails, timestamp: new Date().toISOString() })
+            });
+            if (!shippingResponse.ok) throw new Error('Failed to save shipping details');
+        }
+
+        console.log('Successfully logged all data to MongoDB');
     } catch (error) {
-        console.error(`Error logging action: ${error}`);
+        console.error('Error logging to MongoDB:', error);
+        throw error;
     }
 }
